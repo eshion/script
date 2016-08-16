@@ -33,7 +33,7 @@ if l>1:
                 print '%s %s' %(dt[30], dt[31])
 		i+=1;
 else:
-	url  = "http://hq.sinajs.cn/list=s_sh000001,s_sz399001,s_sh600340,s_sz002310,s_sh600352,s_sh601318,s_sz300072,s_sh600519,s_sh600000,s_sh601699,s_sz300002,s_sz002024,s_sz002437,s_sz002202,s_sh600652,s_sh600252"
+	url  = "http://hq.sinajs.cn/list=s_sh000001,s_sz399001,s_sz399006,s_sh600340,s_sz002310,s_sh600352,s_sh601318,s_sz300072,s_sh600519,s_sz300070"
 	data = urllib.urlopen(url).read()
 	line = data.split('\n')
 	for vv in line:
