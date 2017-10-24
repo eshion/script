@@ -25,7 +25,7 @@ if l>1:
                 print 'b2:%s %s' %(dt[13], int(dt[12])/100)
                 print 'b3:%s %s' %(dt[15], int(dt[14])/100)
                 print 'b4:%s %s' %(dt[17], int(dt[16])/100)
-                print 'b5:%s %s' %(dt[18], int(dt[18])/100)
+                print 'b5:%s %s' %(dt[19], int(dt[18])/100)
                 print 'change:%s %s%%' %(float(dt[3])-float(dt[2]), round((float(dt[3])-float(dt[2]))*100/float(dt[2]),2) )
                 print 'max:%s min:%s' %(dt[4], dt[5])
                 print 'HighLimit:%s LowerLimit:%s' %(round(float(dt[2])*1.1,2), round(float(dt[2])*0.9,2))
@@ -33,7 +33,7 @@ if l>1:
                 print '%s %s' %(dt[30], dt[31])
 		i+=1;
 else:
-	url  = "http://hq.sinajs.cn/list=s_sh000001,s_sz399001,s_sz399006,s_sh600340,s_sz002310,s_sh600352,s_sh601318,s_sz300072,s_sh600519,s_sz300070"
+	url  = "http://hq.sinajs.cn/list=s_sh000001,s_sz399001,s_sz399006,s_sh600340,s_sz002310,s_sz300355,s_sh601318,s_sz300072,s_sh600519,s_sz300070"
 	data = urllib.urlopen(url).read()
 	line = data.split('\n')
 	for vv in line:
