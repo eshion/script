@@ -2,7 +2,7 @@
 
 const http = require('http');
 
-let stocks = 'sh000001,sz399001,sz399006,sh600340,sz002310,sz300355,sh601318,sz300072,sh600519,sz300070';
+let stocks = 'sh000001,sz399001,sz399006,sh600340,sz002310,sz300355,sh601318,sz300072,sh600519,sz300070,hk03918';
 
 if(process.argv.length > 2){
   stocks = process.argv[2];
