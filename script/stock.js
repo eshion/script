@@ -2,8 +2,25 @@
 
 const http = require('http');
 
-let stocks = 'sh000001,sz399001,sz399006,sh600340,sz002310,sz300355,sh601318,sz300072,sh600519,sz300070,hk03918';
-
+let stocks = [
+  'sh000001',
+  'sz399001',
+  'sh601318',
+  'sh600519',
+  'sh600036',
+  'sz000001',
+  'sh600436',
+  'sh600276',
+  'sz300015',
+  'sz300760',
+  'sz300146',
+  'sh600872',
+  'sz300070',
+  'sh600999',
+  'sz002310',
+  'hk03918'
+];
+stocks = stocks.join(',');
 if(process.argv.length > 2){
   stocks = process.argv[2];
 }
