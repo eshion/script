@@ -17,7 +17,8 @@ let stocks = [
   'sz300146',
   'sh600872',
   'sz002310',
-  'hk03918'
+  'hk03918',
+  'hk01528'
 ];
 stocks = stocks.join(',');
 if(process.argv.length > 2){
