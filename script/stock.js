@@ -6,48 +6,92 @@ let stocks = [
   'sh000001',
   'sz399001',
   'sz399006',
+
   'sh601318',
-'sz000001',
-'sz002142',
-'sh600519',
-'sz000858',
-'sz002847',
-'sz300347',
-'sz002821',
-'sh603259',
-'sz002463',
-'sz002916',
-'sh600183',
-'sz300735',
-'sz300322',
-'sz002475',
-'sz300015',
-'sh600763',
-'sz002511',
-'sz300760',
-'sh600529',
-'sz000661',
-'sz300595',
-'sh600872',
-'sh603027',
-'sh600305',
-'sz300012',
-'sz300776',
-'sz002120',
-'sh603508',
-'sh601012',
-'sz300529',
-'sh603517',
-'sh601888',
-'sz300628',
-'sh603939',
-'sh603882',
-'sh603127',
-'sz300759',
-'sz300122',
-'sh600161',
-'sh603233',
-'sh600036',
+  'sh600036',
+  'sz000001',
+  'sz002142',
+  'sh600519',
+  'sz000858',
+  'sz000568',
+  'sh600809',
+  'sz000596',
+  'sh603288',
+  'sh600872',
+  'sh603027',
+  'sh600305',
+  'sh603259',
+  'sz300347',
+  'sz002821',
+  'sh600763',
+  'sz300015',
+  'sz300760',
+  'sz300529',
+  'sz300595',
+  'sz002463',
+  'sz002916',
+  'sh600183',
+  'sz002475',
+  'sz300735',
+  'sz000063',
+  'sh603444',
+  'sz300699',
+  'sz002352',
+  'sh600346',
+  'sz002001',
+  'sh603605',
+  'sz002511',
+  'sh601888',
+  'sz300144',
+  'sh603939',
+  'sz000529',
+  'sz003882',
+  'sz003127',
+  'sz300759',
+  'sz300725',
+
+  'sh603658',
+  'sh600009',
+  'sz000333',
+  'sz000651',
+  'sz000002',
+  'sz002607',
+  'sz300003',
+  'sh603233',
+  'sh603883',
+  'sh600436',
+  'sz000661',
+  'sz300122',
+  'sz300357',
+  'sz300146',
+  'sz300012',
+  'sh603899',
+  'sz002372',
+  'sz300783',
+  'sz002557',
+  'sz002695',
+  'sz002507',
+  'sh603517',
+  'sz002415',
+  'sh600585',
+  'sh600309',
+  'sh600031',
+  'sz002008',
+  'sz300776',
+  'sh601012',
+  'sz300034',
+  'sz300638',
+  'sz300782',
+  'sz002384',
+  'sz000049',
+  'sh603236',
+  'sh603160',
+  'sz300628',
+  'sz000977',
+  'sh600570',
+  'sz002120',
+  'sz000338',
+  
 ];
 stocks = stocks.join(',');
 if(process.argv.length > 2){
@@ -55,31 +99,45 @@ if(process.argv.length > 2){
 }
 
 const url = `http://sqt.gtimg.cn/utf8/q=${stocks}`;
+///////////////////
+const perurl = `https://tc.xueqiu.com/tc/snowx//MONI/performances.json?gid=3100348639198801`;
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+//////////////////////////////////
 
-http.get(url, (res) => { 
-	const { statusCode } = res;
-	let error;
-	if(200 !== statusCode){
-		error = new Error(`Request Failed: ${statusCode}`);
-	}
-	if (error) {
-		console.error(error.message);
-		res.resume();
-		return;
-	}
-	res.setEncoding('utf8');
-	let rawData = '';
-	res.on('data', (chunk) => { rawData += chunk; });
-	res.on('end', () => {
-		try {
-			procTS(rawData);
-		} catch (e){
-			console.error(e.message);
-		}
-	});
-}).on('error', (e) => { 
-	console.log("Got error: " + e.message); 
-});
+(async () => {
+  try {
+    procTS(await request(url));
+    //let dt = await request(perurl);
+    //dt = JSON.parse(dt);
+    //console.log(dt);
+  } catch (e){
+    console.error(e.message);
+  }
+})();
+
+function request(options) {
+  return new Promise((resolve, reject) => {
+      const req = http.request(options, (res) => {
+          const { statusCode } = res;
+          let error;
+          if(200 !== statusCode){
+            error = new Error(`Request Failed: ${statusCode}`);
+          }
+          if (error) {
+            console.error(error.message);
+            res.resume();
+            reject(error);
+            return;
+          }
+          res.setEncoding('utf8');
+          let ret = '';
+          res.on('data', buffer => { ret += buffer.toString() });
+          res.on('end', () => resolve(ret));
+      });
+      req.on('error', (e) => reject(e));
+      req.end();
+  });
+};
 
 function procTS(data){
 	const items = data.split("\n");
